@@ -20,7 +20,7 @@ export default function Home() {
   function autoCurrency(amount = "1") {
 
     var myHeaders = new Headers();
-    myHeaders.append("apikey", NEXT_PUBLIC_API_KEY);
+    myHeaders.append("apikey", process.env.NEXT_PUBLIC_API_KEY);
     var requestOptions = {
       method: 'GET',
       redirect: 'follow',
@@ -35,11 +35,12 @@ export default function Home() {
 
   }
 
-  function switchCurrency(currencySelectedA, currencySelectedB, valueA, valueB) {
+  function switchCurrency() {
 
     setCurrencySelectedA(currencySelectedB)
     setCurrencySelectedB(currencySelectedA)
-    autoCurrency(valueA)
+    setValueA("0.00")
+    setValueB("0.00")
     
   }
 
@@ -59,10 +60,10 @@ export default function Home() {
             <h1>Conversor de moedas</h1>
 
             <nav className={styles.navContainer}>
-              <MoneyInput currency="BR" setCurrencyInput={setValueA} currencyInput={valueA} autoCurrency={autoCurrency} disabled={false} currencyProps="USD" setCurrencySelected={setCurrencySelectedA} />
+              <MoneyInput currency="BR" setCurrencyInput={setValueA} currencyInput={valueA} autoCurrency={autoCurrency} disabled={false} currencyProps="USD" setSelectedValue={setCurrencySelectedA} currencySelected={currencySelectedA} />
 
-              <button onClick={() => switchCurrency(currencySelectedA, currencySelectedB, valueA, valueB)}>
-                <Image className={styles.switchArrows}
+              <button className={styles.switchArrows} onClick={() => switchCurrency()} >
+                <Image 
                   src="/images/arrows.svg"
                   alt="Picture of the author"
                   width={20}
@@ -70,7 +71,7 @@ export default function Home() {
                 />
               </button>
 
-              <MoneyInput currency="UDS" setCurrencyInput={setValueB} currencyInput={valueB} autoCurrency={autoCurrency} disabled={true} currencyProps="BRL" setCurrencySelected={setCurrencySelectedB} />
+              <MoneyInput currency="UDS" setCurrencyInput={setValueB} currencyInput={valueB} autoCurrency={autoCurrency} disabled={true} currencyProps="BRL" setSelectedValue={setCurrencySelectedB} currencySelected={currencySelectedB} />
             </nav>
           </div>
           <div className={styles.mapContainer}>

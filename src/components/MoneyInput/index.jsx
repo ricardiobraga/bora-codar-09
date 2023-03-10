@@ -16,7 +16,7 @@ export default function MoneyInput(props) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("apikey", NEXT_PUBLIC_API_KEY);
+    myHeaders.append("apikey", process.env.NEXT_PUBLIC_API_KEY);
     useEffect(() => {
 
         var requestOptions = {
@@ -51,10 +51,12 @@ export default function MoneyInput(props) {
     }
 
     function currencyValue(e) {
-        setSelectedValue(e.value)
+        props.setSelectedValue(e.value)
         props.setCurrencySelected(e.value)
         
     }
+
+    
 
 
 
@@ -83,7 +85,7 @@ export default function MoneyInput(props) {
                 placeholder={setCurrency(props.currencyProps)}
                 isSearchable={false}
                 options={options}
-                value={options.find(obj => obj.value === selectedValue)}
+                value={options.find(obj => obj.value === props.currencySelected)}
                 onChange={(e) => currencyValue(e)}
                 
                 formatOptionLabel={options =>

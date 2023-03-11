@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 * {
   font-family: "Inter";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smooting: grayscale;
 }
 :root {
+    font-size: 62.5%;
       /* colors */
     --color-highlight: #7C3AED;
     --color-text-primary: #0F172A;
@@ -11,41 +17,26 @@
     --color-surface-secondary: #EDE9FE;
     --color-graphic-elements: #94A3B8;
     --chartGradient: linear-gradient(180deg, rgba(124, 58, 237, 0.5) 21.15%, rgba(124, 58, 237, 0) 100%);
-    --color-bg-color: #F8FAFC;
-
-
-    
-
-
-    
-    
+    --color-bg-color: #F8FAFC;   
     
     
   }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-    background-color: var(--color-bg-color);
-   
-  }
+
+
+  .tooltip{
+    background-color: var(--color-surface-primary);
+    box-shadow: 0 .4rem 1.6rem rgb(15 23 42 / .15);
+    border-radius: .4rem;
+    padding: .8rem;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+  font-size: 1.6rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-color);
 
-
-
-@media (prefers-color-scheme: dark) {
-  html {
-    
-  }
 }

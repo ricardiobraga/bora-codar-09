@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^3.37.1",
     "eslint": "8.35.0",
     "eslint-config-next": "latest",
     "next": "latest",
     "react": "latest",
+    "react-apexcharts": "^1.4.0",
     "react-currency-masked-input": "^2.5.0",
     "react-dom": "latest",
     "react-select": "^5.7.0"

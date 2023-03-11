@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from './styles.module.css';
 
-import Image from 'next/image';
 
-import Select from 'react-select'
-import CurrencyInput from 'react-currency-masked-input'
+
+import Select from 'react-select';
+import CurrencyInput from 'react-currency-masked-input';
+
+
+
 
 
 
@@ -12,8 +15,10 @@ export default function MoneyInput(props) {
 
     const [selectedValue, setSelectedValue] = useState([]);
     const [currencyInput, setCurrencyInput] = useState(0.0);
-    const [options, setOptions] = useState([{ value: "carregando", label: "carregando..." }]);
-
+    const [isLoading, setIsLoading] = useState(true);
+    const [options, setOptions] = useState([{ value: "", label: "" }]);
+    const flag = "us"
+    
 
     var myHeaders = new Headers();
     myHeaders.append("apikey", process.env.NEXT_PUBLIC_API_KEY);
@@ -27,8 +32,11 @@ export default function MoneyInput(props) {
 
         fetch("https://api.apilayer.com/currency_data/list", requestOptions)
             .then(response => response.json())
+            .then(setIsLoading(true))
             .then(result => loadFlags(Object.keys(result.currencies)))
+            .then(setIsLoading(false))
             .catch(error => console.log('error', error));
+
     }, [])
 
     function loadFlags(flag) {
@@ -52,7 +60,7 @@ export default function MoneyInput(props) {
 
     function currencyValue(e) {
         props.setSelectedValue(e.value)
-        props.setCurrencySelected(e.value)
+        props.setSelectedValue(e.value)
         
     }
 
@@ -61,12 +69,12 @@ export default function MoneyInput(props) {
 
 
     return (
-        <div className={styles.currencyConverter}>
+        <div className={styles.moneyWrapper}>
             <span className={styles.currencySign}>R$</span>
             <CurrencyInput
                 name="money"
                 disabled={props.disabled}
-                className={styles.inputCoin}
+                className={styles.amount}
                 value={props.currencyInput}
                 
                 placeholder={"0.00"}
@@ -79,9 +87,11 @@ export default function MoneyInput(props) {
             <span className={styles.currencyConverterSpan}>|</span>
             
             <Select
+                isLoading={isLoading}
                 className={styles.selectCoin}
                 id="long-value-select"
                 instanceId="long-value-select"
+                
                 placeholder={setCurrency(props.currencyProps)}
                 isSearchable={false}
                 options={options}
@@ -90,8 +100,9 @@ export default function MoneyInput(props) {
                 
                 formatOptionLabel={options =>
                 (<div className={styles.currencySelection}>
+                    <span className={`fi fi-${flag}`}></span>
                     {/* <img src={options.image} crossorigin="anonymous" alt="options-image" className={styles.flagImage} /> */}
-                    <span>{options.label}</span>
+                    <span className={styles.label}>{options.label}</span>
                 </div>)}
             />
 
